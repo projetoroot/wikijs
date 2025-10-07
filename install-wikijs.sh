@@ -24,13 +24,18 @@ read -p "Deseja configurar HTTPS com Certbot automaticamente? (S/N): " USE_HTTPS
 
 echo "Removendo instalações antigas..."
 # Remove banco de dados e usuário antigo com cuidado
-sudo -u postgres psql -tc "SELECT 1 FROM pg_database WHERE datname='wikijs'" | grep -q 1 && \
+if sudo -u postgres psql -tc "SELECT 1 FROM pg_database WHERE datname='wikijs'" | grep -q 1; then
+    # Finaliza conexões ativas antes de apagar o banco
+    sudo -u postgres psql -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='wikijs';"
     sudo -u postgres psql -c "DROP DATABASE wikijs;"
+fi
+
 if sudo -u postgres psql -tc "SELECT 1 FROM pg_roles WHERE rolname='wikijsuser'" | grep -q 1; then
     sudo -u postgres psql -c "REASSIGN OWNED BY wikijsuser TO postgres;"
     sudo -u postgres psql -c "DROP OWNED BY wikijsuser;"
     sudo -u postgres psql -c "DROP ROLE wikijsuser;"
 fi
+
 sudo rm -rf /opt/wikijs
 
 echo "Atualizando sistema e instalando dependências..."
