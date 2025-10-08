@@ -1,6 +1,7 @@
 #!/bin/bash
 # Instalador automático do Wiki.js no Debian 13 (sem Docker)
 # Autor: Diego Costa (@diegocostaroot) / Projeto Root (youtube.com/projetoroot)
+# Veja o link: https://wiki.projetoroot.com.br/index.php?title=WikiJS
 # Versão: 1.0
 # 2025
 
