@@ -42,10 +42,10 @@ echo "Atualizando sistema e instalando dependências..."
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y curl wget gnupg2 unzip nano nginx postgresql postgresql-contrib
 
-# Instala Node.js 20
+# Instala Node.js 22
 if ! command -v node &> /dev/null; then
-    echo "Instalando Node.js 20..."
-    curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+    echo "Instalando Node.js 22..."
+    curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
     sudo apt install -y nodejs
 fi
 
